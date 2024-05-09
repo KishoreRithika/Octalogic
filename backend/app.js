@@ -1,11 +1,15 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+const sequelize = require('./src/models/database');
+const VehicleType = require('./src/models/VehicleType');
+const VehicleModel = require('./src/models/VehicleModel');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const app = express();
+const PORT = process.env.PORT || 3200;
+
+sequelize.sync({ force: true }).then(() => {
+  console.log('Database synced');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
